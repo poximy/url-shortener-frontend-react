@@ -1,5 +1,11 @@
 import React, { useState } from "react";
 
+interface IUrl {
+  _id?: string;
+  urlId?: string;
+  url: string;
+}
+
 const Url: React.FC = () => {
   const [urlText, setUrlText] = useState<string>("");
 
