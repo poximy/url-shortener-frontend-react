@@ -9,6 +9,24 @@ interface IUrl {
 const Url: React.FC = () => {
   const [urlText, setUrlText] = useState<string>("");
 
+  // Send a request and gets back a IUrl with complete data
+  const postUrl = async () => {
+    const postData: IUrl = { url: urlText };
+    const url = "http://127.0.0.1:8000/";
+
+    const res = await fetch(url, {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(postData),
+    });
+
+    const data: IUrl = await res.json();
+    data.urlId = url + data._id;
+    return data;
+  };
+
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
