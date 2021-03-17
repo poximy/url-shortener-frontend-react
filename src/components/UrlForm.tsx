@@ -46,12 +46,14 @@ const UrlForm: React.FC<Props> = ({ submitAction }) => {
 
   return (
     <form onSubmit={onSubmit}>
+      <label>Url</label>
       <input
         type="text"
         value={urlText}
-        placeholder="Url"
+        placeholder="Insert Url"
         onChange={(e) => setUrlText(e.target.value)}
       />
+      <label>Alias</label>
       <input
         type="checkbox"
         checked={alias}
