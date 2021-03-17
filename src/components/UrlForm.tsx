@@ -11,6 +11,7 @@ interface IUrl {
 
 const UrlForm: React.FC<Props> = ({ submitAction }) => {
   const [urlText, setUrlText] = useState<string>("");
+  const [aliasText, setAliasText] = useState<string>("");
   const [alias, setAlias] = useState<boolean>(false);
 
   // Send a request and gets back a IUrl with complete data
@@ -38,9 +39,15 @@ const UrlForm: React.FC<Props> = ({ submitAction }) => {
       return;
     }
 
+    if (alias && !aliasText) {
+      alert("Insert an Alias");
+      return;
+    }
+
     const newUrl = await postUrl();
     submitAction(newUrl);
     setUrlText("");
+    setAliasText("");
     setAlias(false);
   };
 
@@ -62,6 +69,16 @@ const UrlForm: React.FC<Props> = ({ submitAction }) => {
           checked={alias}
           onChange={(e) => setAlias(e.currentTarget.checked)}
         />
+        {alias ? (
+          <input
+            type="text"
+            value={aliasText}
+            placeholder="Insert Alias"
+            onChange={(e) => setAliasText(e.target.value)}
+          />
+        ) : (
+          ""
+        )}
       </div>
       <input type="submit" value="Minify Url" />
     </form>
