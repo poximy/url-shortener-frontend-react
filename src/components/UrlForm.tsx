@@ -4,10 +4,29 @@ interface Props {
   submitAction: (urlData: string) => void;
 }
 
+interface textProps {
+  urlText: string;
+  urlTextChange: (urlText: string) => void;
+}
+
 interface IUrl {
   _id?: string;
   url: string;
 }
+
+const UrlText: React.FC<textProps> = ({ urlText, urlTextChange }) => {
+  return (
+    <div className="url-text">
+      <label>Url</label>
+      <input
+        type="text"
+        value={urlText}
+        placeholder="Insert Url"
+        onChange={(e) => urlTextChange(e.target.value)}
+      />
+    </div>
+  );
+};
 
 const UrlForm: React.FC<Props> = ({ submitAction }) => {
   const [urlText, setUrlText] = useState<string>("");
@@ -53,15 +72,7 @@ const UrlForm: React.FC<Props> = ({ submitAction }) => {
 
   return (
     <form onSubmit={onSubmit}>
-      <div className="url-text">
-        <label>Url</label>
-        <input
-          type="text"
-          value={urlText}
-          placeholder="Insert Url"
-          onChange={(e) => setUrlText(e.target.value)}
-        />
-      </div>
+      <UrlText urlText={urlText} urlTextChange={(text) => setUrlText(text)} />
       <div className="alias">
         <label>Alias</label>
         <input
