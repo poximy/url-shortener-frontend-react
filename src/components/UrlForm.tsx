@@ -30,12 +30,12 @@ const UrlText: React.FC<textProps> = ({ urlText, urlTextChange }) => {
 
 const UrlForm: React.FC<Props> = ({ submitAction }) => {
   const [urlText, setUrlText] = useState<string>("");
-  const [aliasText, setAliasText] = useState<string>("")
+  const [aliasText, setAliasText] = useState<string>("");
   const [alias, setAlias] = useState<boolean>(false);
 
   // Send a request and gets back a IUrl with complete data
   const postUrl = async () => {
-    const postData: IUrl = { url: urlText, _id: (alias ? aliasText : "")};
+    const postData: IUrl = { url: urlText, _id: alias ? aliasText : "" };
     const url = "http://127.0.0.1:8000/";
 
     const res = await fetch(url + (alias ? "?alias=true" : "?alias=false"), {
@@ -59,14 +59,14 @@ const UrlForm: React.FC<Props> = ({ submitAction }) => {
     }
 
     if (alias && !aliasText) {
-      alert("Insert an Alias")
-      return
+      alert("Insert an Alias");
+      return;
     }
 
     const newUrl = await postUrl();
     submitAction(newUrl);
     setUrlText("");
-    setAliasText("")
+    setAliasText("");
     setAlias(false);
   };
 
@@ -80,7 +80,16 @@ const UrlForm: React.FC<Props> = ({ submitAction }) => {
           checked={alias}
           onChange={(e) => setAlias(e.currentTarget.checked)}
         />
-        {alias ? <input type="text" value={aliasText} placeholder="Insert Alias" onChange={(e) => setAliasText(e.target.value)} /> : ""}
+        {alias ? (
+          <input
+            type="text"
+            value={aliasText}
+            placeholder="Insert Alias"
+            onChange={(e) => setAliasText(e.target.value)}
+          />
+        ) : (
+          ""
+        )}
       </div>
       <input type="submit" value="Minify Url" />
     </form>
