@@ -16,7 +16,7 @@ const UrlForm: React.FC<Props> = ({ submitAction }) => {
 
   // Send a request and gets back a IUrl with complete data
   const postUrl = async () => {
-    const postData: IUrl = { url: urlText};
+    const postData: IUrl = { url: urlText, _id: (alias ? aliasText : "")};
     const url = "http://127.0.0.1:8000/";
 
     const res = await fetch(url + (alias ? "?alias=true" : "?alias=false"), {
