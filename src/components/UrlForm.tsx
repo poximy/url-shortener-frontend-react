@@ -9,6 +9,13 @@ interface textProps {
   urlTextChange: (urlText: string) => void;
 }
 
+interface aliasProps {
+  aliasText: string;
+  aliasTextChange: (aliasText: string) => void;
+  aliasChecked: boolean;
+  aliasCheckedChange: (checked: boolean) => void;
+}
+
 interface IUrl {
   _id?: string;
   url: string;
@@ -24,6 +31,34 @@ const UrlText: React.FC<textProps> = ({ urlText, urlTextChange }) => {
         placeholder="Insert Url"
         onChange={(e) => urlTextChange(e.target.value)}
       />
+    </div>
+  );
+};
+
+const UrlAlias: React.FC<aliasProps> = ({
+  aliasText,
+  aliasTextChange,
+  aliasChecked,
+  aliasCheckedChange,
+}) => {
+  return (
+    <div className="alias">
+      <label>Alias</label>
+      <input
+        type="checkbox"
+        checked={aliasChecked}
+        onChange={(e) => aliasCheckedChange(e.currentTarget.checked)}
+      />
+      {aliasChecked ? (
+        <input
+          type="text"
+          value={aliasText}
+          placeholder="Insert Alias"
+          onChange={(e) => aliasTextChange(e.target.value)}
+        />
+      ) : (
+        ""
+      )}
     </div>
   );
 };
@@ -73,24 +108,12 @@ const UrlForm: React.FC<Props> = ({ submitAction }) => {
   return (
     <form onSubmit={onSubmit}>
       <UrlText urlText={urlText} urlTextChange={(text) => setUrlText(text)} />
-      <div className="alias">
-        <label>Alias</label>
-        <input
-          type="checkbox"
-          checked={alias}
-          onChange={(e) => setAlias(e.currentTarget.checked)}
-        />
-        {alias ? (
-          <input
-            type="text"
-            value={aliasText}
-            placeholder="Insert Alias"
-            onChange={(e) => setAliasText(e.target.value)}
-          />
-        ) : (
-          ""
-        )}
-      </div>
+      <UrlAlias
+        aliasText={aliasText}
+        aliasTextChange={setAliasText}
+        aliasChecked={alias}
+        aliasCheckedChange={setAlias}
+      />
       <input type="submit" value="Minify Url" />
     </form>
   );
