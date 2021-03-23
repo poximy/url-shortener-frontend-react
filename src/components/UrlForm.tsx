@@ -23,15 +23,13 @@ interface IUrl {
 
 const UrlText: React.FC<textProps> = ({ urlText, urlTextChange }) => {
   return (
-    <div className="url-text">
-      <label>Url</label>
-      <input
-        type="text"
-        value={urlText}
-        placeholder="Insert Url"
-        onChange={(e) => urlTextChange(e.target.value)}
-      />
-    </div>
+    <input
+      className="rounded-l bg-gray-300 px-6 py-3"
+      type="text"
+      value={urlText}
+      placeholder="Insert Url"
+      onChange={(e) => urlTextChange(e.target.value)}
+    />
   );
 };
 
@@ -106,15 +104,14 @@ const UrlForm: React.FC<Props> = ({ submitAction }) => {
   };
 
   return (
-    <form onSubmit={onSubmit}>
+    <form onSubmit={onSubmit} className="justify-center flex">
       <UrlText urlText={urlText} urlTextChange={(text) => setUrlText(text)} />
-      <UrlAlias
-        aliasText={aliasText}
-        aliasTextChange={setAliasText}
-        aliasChecked={alias}
-        aliasCheckedChange={setAlias}
-      />
-      <input type="submit" value="Minify Url" />
+      <button
+        className="text-xl bg-green-500 hover:bg-green-400 rounded-r uppercase px-6 py-3 text-white font-bold"
+        type="submit"
+      >
+        MINIFY
+      </button>
     </form>
   );
 };
