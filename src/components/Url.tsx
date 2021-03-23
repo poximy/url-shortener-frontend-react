@@ -7,7 +7,19 @@ const Url: React.FC = () => {
   return (
     <main>
       <UrlForm submitAction={(urlData) => setUrlCreated(urlData)} />
-      {urlCreated ? <p>{urlCreated}</p> : ""}
+      {urlCreated ? (
+        <>
+          <p className="text-center text-white text-xl py-10">{urlCreated}</p>
+          <button
+            className="mx-auto block px-3 py-1 font-bold text-xl text-white rounded bg-green-500 hover:bg-green-400"
+            onClick={() => navigator.clipboard.writeText(urlCreated)}
+          >
+            COPY
+          </button>
+        </>
+      ) : (
+        ""
+      )}
     </main>
   );
 };
