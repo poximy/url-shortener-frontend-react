@@ -31,8 +31,8 @@ const UrlForm: React.FC<Props> = ({ submitAction }) => {
 
   // Send a request and gets back a IUrl with complete data
   const postUrl = async () => {
-    const postData: IUrl = { url: urlText};
-    const url = "http://127.0.0.1:8000/";
+    const postData: IUrl = { url: urlText };
+    const url = "https://url-shortener-erickzv.herokuapp.com/";
 
     const res = await fetch(url, {
       method: "POST",
